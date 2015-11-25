@@ -8,7 +8,7 @@
   (let [purchases (slurp "purchases.csv")                   ;beginning of let/slurp purchases
         purchases (str/split-lines purchases)               ;split purchases file into sepereate lines
         purchases (map (fn [line]                           ;make a map through the function [line]
-                         (str/split line #","))             ;Spllit the strings by the columns using ","
+                         (str/split line #","))             ;Spllit the strings by the columns using "," mapping over purchases
                        purchases)
         header (first purchases)                            ;the first line in purchases is now the header
         purchases (rest purchases)                          ;the rest of the purchase lines inside purchaes.csv
@@ -16,15 +16,15 @@
                          (interleave header line))          ;make the header the keys in  hash-map
                        purchases)
         purchases (map (fn [line]
-                         (apply hash-map line))             ;make the value pairs to the keys in hash-map
+                         (apply hash-map line))             ;set the value pairs to the header keys in hash-map
                        purchases)
-        purchases (walk/keywordize-keys purchases)          ;set the strings in purchases to be clojure keywords
+        purchases (walk/keywordize-keys purchases)          ;set the strings in purchaes to match clojure keywords
         input (read-line)                                   ;reading user input from console
         purchases (filter (fn [line]
                             (= input (:category line)))     ;the user input will cause a sort by category function
                           purchases)
         ]
-    (spit "filtered_purchases.edn"                          ;spit/print out filtered results to "filtered_purchaes.edn"
+    (spit (format "filtered_%s.edn" input)    M                      ;spit/print out filtered results to "filtered_purchaes.edn"
           (pr-str purchases))
     )                                                       ;end of let
   )                                                         ;end of main
