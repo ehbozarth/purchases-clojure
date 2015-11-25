@@ -24,7 +24,7 @@
                             (= input (:category line)))     ;the user input will cause a sort by category function
                           purchases)
         ]
-    (spit (format "filtered_%s.edn" input)    M                      ;spit/print out filtered results to "filtered_purchaes.edn"
+    (spit (format "filtered_%s.edn" input)                  ;spit/print out filtered results to "filtered_purchaes.edn"
           (pr-str purchases))
     )                                                       ;end of let
   )                                                         ;end of main
